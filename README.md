@@ -4,6 +4,8 @@ It is a javascript class to manage deep nested proxy.
 
 ## How it works?
 
+A basic example:
+
 *index.html*
 ```html
 <!DOCTYPE html>
@@ -102,3 +104,11 @@ dp.merge({
 
 ```
 
+## DProxy API
+
+- `dp.get(key)         // Deep get`
+- `dp.set(key, value)  // Deep set`
+- `dp.upd(key, value)  // Deep update `
+- `dp.merge(obj)       // Deep merge`
+- `dp.rmv(key)         // Deep remove `
+- `dp.ins(key, value)  // Deep insert`
