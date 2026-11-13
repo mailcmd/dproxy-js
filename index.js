@@ -2,7 +2,8 @@ const datas = {
     metrics: {
         cpu: {
             usage: 0,
-            loadavg: [0, 0, 0]
+            loadavg: [0, 0, 0],
+            test: []
         },
         memory: {
             usage: 0,
@@ -17,7 +18,8 @@ const datas = {
 
 const callback = function(key, value) {
     console.log('DProxy SET:', key, value);
-    document.querySelector('[metric-id="'+key+'"]').innerHTML = value;
+    if (document.querySelector('[metric-id="'+key+'"]'))
+        document.querySelector('[metric-id="'+key+'"]').innerHTML = value;
 };
 
 const dp = new DProxy(datas, callback)
@@ -35,15 +37,21 @@ dp.metrics.disk.free_space = '212.1 Gb';
 // Single update using DProxy lib
 dp.set('.metrics.disk.usage', '12%');
 dp.set('.metrics.disk.free_space', '212.1 Gb');
+dp.set('.metrics.cpu.loadavg.0', 0.5);
+dp.set('.metrics.cpu.loadavg.1', 0.2);
+dp.set('.metrics.cpu.loadavg.2', 0.3);
+// Or use 'upd' instead of 'set'
+dp.upd('.metrics.cpu.loadavg', [0.5, 0.2, 0.3]);
 
 // Or partial bundle update
 dp.merge({
     metrics: {
         cpu: {
-            usage: '80%'
+            usage: '80%',
+            loadavg: [0.5, 0.2, 0.3]
         },
         memory: {
             usage: '21%'
-        }
+        },
     }
 });
